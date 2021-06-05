@@ -3,7 +3,7 @@ import React from 'react'
 const Persons = ({ filter, persons, removeContact}) => {
     return(
         persons.filter(person => 
-            person.name.includes(filter)).map(person =>
+            person.name.toLowerCase().includes(filter.toLowerCase())).map(person =>
                 <div key={person.id}>
                     {person.name} {person.number}
                     <button value={person.id} onClick={removeContact}>delete</button>
