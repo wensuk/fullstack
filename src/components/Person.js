@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Persons = ({ filter, persons, removeContact}) => {
+const Person = ({ filter, persons, removeContact}) => {
     return(
         persons.filter(person => 
             person.name.toLowerCase().includes(filter.toLowerCase())).map(person =>
@@ -13,4 +13,4 @@ const Persons = ({ filter, persons, removeContact}) => {
 }
 
 
-export default Persons
+export default Person

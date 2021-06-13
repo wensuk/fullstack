@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PersonForm from './components/PersonForm'
-import Persons from './components/Persons'
+import Person from './components/Person'
 import Filter from './components/Filter'
-import personService from './services/persons'
+import personService from './services/person'
 import Notification from './components/Notification'
 import ErrorNotification from './components/ErrorNotification'
 
@@ -71,27 +71,45 @@ const App = () => {
     })
 
     // Check existance & create new contact
-    const checkName = persons.map(person => person.name)
-    if (!checkName.includes(newName)) {
-      personService
-      .create(personObject)
-      .then(data => {
-        setPersons(persons.concat(data))
-        setStatusMessage(`${newName} Succesfully Added!`)
+    // const checkName = persons.map(person => person.name)
+    // if (!checkName.includes(newName)) {
+    //   personService
+    //   .create(personObject)
+    //   .then(data => {
+    //     setPersons(persons.concat(data))
+    //     setStatusMessage(`${newName} Succesfully Added!`)
+    //     setTimeout(() => {
+    //       setStatusMessage(null)
+    //     }, 5000) 
+    //     setNewName('')
+    //     setNewNumber('')
+    //   })
+    //   .catch(error => {
+    //     setErrorMessage(error.response.data)
+    //     setTimeout(() => {
+    //       setErrorMessage(null)
+    //     }, 5000) 
+    //   })
+    //   console.log("Reset!")
+    // }
+
+    personService
+      .create({personObject})
+      .then(createdPerson => {
+        console.log(`createdPerson is ${createdPerson}`)
+        setStatusMessage(`${createdPerson.name} succesfully Added`)
         setTimeout(() => {
           setStatusMessage(null)
-        }, 5000) 
+        }, 5000)
         setNewName('')
         setNewNumber('')
       })
       .catch(error => {
-        setErrorMessage('Error. Cannot create data')
+        setErrorMessage(error.response.data)
         setTimeout(() => {
           setErrorMessage(null)
-        }, 5000) 
+        }, 5000)
       })
-      console.log("Reset!")
-    }
   }
 
   const addName = (event) => {
@@ -145,7 +163,7 @@ const App = () => {
         number={{value: newNumber, onChange: addNumber}} />
 
       <h2>Numbers</h2>
-        <Persons filter={newFilter} persons={persons} removeContact={removeContact} />
+        <Person filter={newFilter} persons={persons} removeContact={removeContact} />
 
       <br></br>
       <div>debug: {newName} {newNumber} {newFilter} </div>
