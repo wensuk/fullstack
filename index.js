@@ -4,10 +4,8 @@ const morgan = require('morgan')
 const cors = require('cors')
 
 const app = express()
-const mongoose = require('mongoose')
 
 const Person = require('./models/person')
-const { updateMany } = require('./models/person')
 
 app.use(express.static('build'))
 app.use(express.json())
@@ -33,7 +31,7 @@ app.use(morgan(function (tokens, req, res) {
 }))
 
 
-const now = new Date();
+const now = new Date()
 
 app.get('/', (req, res) => {
   res.send('<h1>Hey its working</h1>')
